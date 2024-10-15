@@ -1,0 +1,38 @@
+services:
+  app:
+    build:
+      context: .
+    container_name: flask_app
+    ports:
+      - "5001:5000"
+    environment:
+      MYSQL_HOST: mysql_db
+      MYSQL_USER: neuro
+      MYSQL_PASSWORD: neurotech
+      MYSQL_DATABASE: db_conversao
+      FLASK_ENV: production
+    depends_on:
+      mysql:
+        condition: service_healthy 
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: db_conversao
+      MYSQL_USER: neuro
+      MYSQL_PASSWORD: neurotech
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "mysql_db"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+
+volumes:
+  mysql_data:
