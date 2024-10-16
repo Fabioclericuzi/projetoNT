@@ -4,7 +4,7 @@
 
 Projeto realizado na linguagem python que utiliza a biblioteca flask para criar um sistema que, através de requisições de uma API, retorna dados de conversões de real para dollar pelos endpoints de buscar
 cotações por data e obter última cotação. O projeto utiliza a biblioteca Flask que é um framework python que permite o desenvolvimento de sistemas que consumem dados de API's de forma simples e eficaz.
-As informações retornadas pela API são armazenadas num banco de dados Mysql.
+As informações das conversões são requisitadas no site https://docs.awesomeapi.com.br/api-de-moedas#formato-de-resposta e armazenadas num banco de dados Mysql.
 
 ### 2. Arquitetura
 
