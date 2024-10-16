@@ -29,16 +29,6 @@ def formatar_cotacoes_por_data(cotacoes):
 
     return lista_formatada
 
-def formatar_cotacoes_por_data(cotacoes):
-    lista_formatada = []
-
-    for cotacao in cotacoes:
-        timestamp = int(cotacao["timestamp"])
-        data = datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')
-        lista_formatada.append({"data": data, "bid": cotacao.get("bid")})
-
-    return lista_formatada
-
 
 def pegar_cotacao_por_data(data_inicial, data_final):
     data_inicio_formatada = datetime.strptime(data_inicial, '%d/%m/%Y').strftime('%Y%m%d')
