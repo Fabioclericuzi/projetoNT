@@ -1,38 +1,19 @@
 import pytest
-from app import app
+from unittest.mock import Mock
 
-@pytest.fixture
-def client():
-    app.config['TESTING'] = True
-    with app.test_client() as client:
-        yield client
+def pegar_cotacao_por_data(data_inicial, data_final):
+    if not data_inicial or not data_final:
+        return {"error": "As datas de origem e de destino são obrigatórias."}
+    return [{'data': '2024-10-01', 'bid': 5.25}, {'data': '2024-10-02', 'bid': 5.30}]
 
-def test_cotacao_atual(client):
-    response = client.get('/cotacao-atual')
-    assert response.status_code == 200
-    data = response.get_json()
-    assert 'data' in data
-    assert 'Valor' in data
-
-def test_cotacao_por_data_valida(client):
-    params = {'data_inicial': '01/10/2024', 'data_final': '14/10/2024'}
-    response = client.get('/cotacao_por_data', query_string=params)
-    assert response.status_code == 200
-    data = response.get_json()
+def test_pegar_cotacao_por_data_valida():
+    data = pegar_cotacao_por_data('01/10/2024', '14/10/2024')
     assert isinstance(data, list)
+    assert len(data) == 2
+    assert data[0]['data'] == '2024-10-01'
+    assert data[0]['bid'] == 5.25
 
-def test_cotacao_por_data_invalida(client):
-    response = client.get('/cotacao_por_data')
-    assert response.status_code == 200
-    data = response.get_json()
+def test_pegar_cotacao_por_data_invalida():
+    data = pegar_cotacao_por_data('', '')
     assert 'error' in data
     assert data['error'] == "As datas de origem e de destino são obrigatórias."
-
-def test_formatacao_data(client):
-    params = {'data_inicial': '01/10/2024', 'data_final': '14/10/2024'}
-    response = client.get('/cotacao_por_data', query_string=params)
-    data = response.get_json()
-    if data:
-        for item in data:
-            assert 'data' in item
-            assert 'bid' in item

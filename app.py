@@ -16,7 +16,7 @@ def cotacao_atual():
     inserir_cotacao(valor_taxa, data_requisicao, data_taxa)
     return jsonify(dados)
 
-@app.route('/cotacao_por_data', methods=['GET'])
+@app.route('/cotacao-por-data', methods=['GET'])
 def cotacao_por_data():
     data_origem = request.args.get('data_inicial')
     data_destino = request.args.get('data_final')
