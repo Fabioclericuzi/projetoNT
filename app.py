@@ -10,7 +10,7 @@ def cotacao_atual():
 
     if 'Valor' in dados:  
         data_requisicao = datetime.now()  
-        data_taxa = datetime.strptime(dados['data'], '%d/%m/%Y').date()
+        data_taxa = datetime.strptime(dados['Data'], '%d/%m/%Y').date()
         valor_taxa = dados['Valor']
 
     inserir_cotacao(valor_taxa, data_requisicao, data_taxa)
@@ -28,8 +28,8 @@ def cotacao_por_data():
     
     for cotacao in dados:
         data_requisicao = datetime.now()  
-        data_taxa = datetime.strptime(cotacao['data'], '%Y-%m-%d %H:%M:%S').date() 
-        valor_taxa = cotacao['bid'] 
+        data_taxa = datetime.strptime(cotacao['Data'], '%Y-%m-%d %H:%M:%S').date() 
+        valor_taxa = cotacao['Valor'] 
         
         inserir_cotacao(valor_taxa, data_requisicao, data_taxa)
 

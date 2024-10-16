@@ -17,7 +17,7 @@ def pegar_ultima_cotacao():
 
     data_format = format_data_ult_cotacao(data)
 
-    return {'data': data_format, 'Valor': valor}
+    return {'Data': data_format, 'Valor': valor}
 
 def formatar_cotacoes_por_data(cotacoes):
     lista_formatada = []
@@ -25,7 +25,9 @@ def formatar_cotacoes_por_data(cotacoes):
     for cotacao in cotacoes:
         timestamp = int(cotacao["timestamp"])
         data = datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')
-        lista_formatada.append({"data": data, "bid": cotacao.get("bid")})
+        
+        valor = cotacao.get("bid")
+        lista_formatada.append({"Data": data, "Valor": valor})
 
     return lista_formatada
 
